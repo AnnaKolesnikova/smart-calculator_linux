@@ -12,6 +12,8 @@ For example:
     .add(2)
     .multiply(2);
 
+  console.log(calculator.add(5));
+
   console.log(value); // 6
 ```
 
