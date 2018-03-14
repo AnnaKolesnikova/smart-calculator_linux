@@ -40,9 +40,26 @@ class SmartCalculator {
             stack.push(currentSymbol);
 
             if (this.map.has(currentSymbol)) {
+                if (currentSymbol == '**') {
+                    stack.pop();
+                    let last = polishString.pop();
+                    let res = polishString.pop();
+                    if (res == undefined) {
+                        res = last;
+                        last = undefined;
+                    }
+                    for (var j = 1; j < expressionStorageSplitted[i + 1]; j++) {
+                        res *= res;
+                    }
+                    i++;
+                    polishString.push('' + res);
+                    if (last != undefined) {
+                        polishString.push(last);
+                    }
 
+                }
             }
-            else if(currentSymbol){
+            else if (currentSymbol) {
                 polishString.push(stack.pop());
 
                 let prevOper = stack.pop();
@@ -52,34 +69,23 @@ class SmartCalculator {
             }
         }
 
-        //let polishStringSplitted = polishString.split(' ');
-        //let result = [];
         let result = 0;
         for (let i = 0; i < polishString.length; i++) {
             let currentSymbol = polishString[i];
             stack.push(currentSymbol);
 
-            if(this.map.has(currentSymbol)){
+            if (this.map.has(currentSymbol)) {
                 stack.pop();
                 let a = stack.pop();
                 let b = stack.pop();
                 result = b + currentSymbol + a;
                 stack.push(result);
             }
-          
-            // if (currentSymbol == '') {
-            //     continue;
-            // }
-
-            // if (!this.map.has(currentSymbol)) {
-            //     stack.push(currentSymbol);
-            // }
-            // else {
-            //     stack.push(eval(stack.pop() + currentSymbol + stack.pop()));
-            // }
         }
-        return eval(stack[0]); 
+        let 
+        return parceInt(stack[0], 2);
     }
+   
 }
 
- module.exports = SmartCalculator;
+module.exports = SmartCalculator;
